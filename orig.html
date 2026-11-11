@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>교재 원문</title>
+<style>*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:#f4f4f1;color:#22252b;font:17px/1.55 "Malgun Gothic","맑은 고딕","Apple SD Gothic Neo",system-ui,sans-serif}
+#wrap{max-width:1180px;margin:0 auto;padding:14px 16px 80px}
+h1{font-size:22px;margin:6px 0 2px}h2{font-size:18px;margin:0 0 8px}
+.d{color:#6b7280;font-size:14px}
+.card{background:#fff;border:1px solid #e3e3dd;border-radius:14px;padding:14px 16px;margin:12px 0}
+button{font:inherit;border:0;border-radius:10px;padding:10px 16px;background:#2f6fde;color:#fff;cursor:pointer}
+button.ghost{background:#eef1f6;color:#22252b}button.ok{background:#1a7f4b}button.warn{background:#c2410c}button.sm{padding:6px 11px;font-size:15px}
+button:disabled{opacity:.5}
+input,select{font:inherit;padding:10px 12px;border:1px solid #cfd3da;border-radius:10px;background:#fff;min-width:0}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.tabs{display:flex;gap:6px;margin:12px 0 0}
+.tabs button{background:#e9ebf0;color:#22252b;flex:1}.tabs button.on{background:#2f6fde;color:#fff}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin:8px 0 2px}
+.chip{background:#eef3ff;border:1px solid #c9d8fb;color:#1d3f8f;border-radius:999px;padding:7px 13px;font-size:16px;cursor:pointer;user-select:none}
+.chip.ok{background:#e7f6ec;border-color:#a9dcbc;color:#14663b}.chip.app{background:#f3f4f6;border-color:#dadde3;color:#555}
+.chip.sel{outline:3px solid #2f6fde}.chip.todo{background:#fff;border-style:dashed;color:#888}
+.gh{font-weight:700;margin:12px 0 0;font-size:15px;color:#444}
+.big{font-size:30px;font-weight:800;line-height:1.1}
+.stat{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;text-align:center}
+.stat>div{background:#f6f7fa;border-radius:12px;padding:10px 4px}.stat small{display:block;color:#6b7280;font-size:13px}
+table.q{width:100%;border-collapse:collapse;margin-top:8px}table.q td,table.q th{padding:7px 6px;border-top:1px solid #ececE6;text-align:left;font-size:16px}
+table.q th{font-size:13px;color:#6b7280;border-top:0;font-weight:500}tr.now td{background:#fff7e0}tr.me td{font-weight:700}
+.bar{height:8px;background:#eef1f6;border-radius:9px;overflow:hidden;min-width:60px}.bar>i{display:block;height:100%;background:#f59e0b}
+/* 지문 보기(전체 화면) */
+#viewer{position:fixed;inset:0;top:var(--ink-h,0px);background:#fff;z-index:50;display:flex;flex-direction:column}
+#viewer[hidden]{display:none}
+.vh{display:flex;gap:8px;align-items:center;padding:10px 14px;border-bottom:1px solid #e3e3dd;background:#fafaf7;flex-wrap:wrap}
+.vh b{flex:1;font-size:17px;min-width:160px}
+.vb{flex:1;overflow:auto;padding:22px 26px 60px;-webkit-overflow-scrolling:touch}
+.vb .in{max-width:900px;margin:0 auto;font-size:var(--fs,21px);line-height:1.8}
+.stem{font-weight:700;margin-bottom:14px;font-family:"Malgun Gothic","맑은 고딕","Apple SD Gothic Neo",sans-serif;font-size:.9em}
+.ptext{white-space:pre-wrap;font-family:"Times New Roman",Times,"Malgun Gothic",serif;text-align:justify;border:1.5px solid #9aa0aa;border-radius:6px;padding:18px 20px}
+.blank{display:inline-block;width:9em;border-bottom:1.5px solid #222;vertical-align:baseline}
+.foot{font-size:.82em;color:#333;margin-top:10px;text-align:right}
+.choices{margin-top:16px;font-family:"Times New Roman",Times,"Malgun Gothic",serif}.choices>div{margin:5px 0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:22px;max-width:1500px;margin:0 auto;font-size:var(--fs,19px);line-height:1.75}
+.two .ko{white-space:pre-wrap;border:1.5px solid #c9d8fb;background:#f7faff;border-radius:6px;padding:18px 20px}
+.two h3{margin:0 0 8px;font-size:14px;color:#6b7280;font-weight:600}
+.voc{margin-top:14px;font-size:.8em;display:flex;flex-wrap:wrap;gap:6px}.voc span{background:#f3f4f6;border-radius:7px;padding:3px 9px}
+.exp{margin-top:14px;font-size:.82em;background:#fffbea;border:1px solid #f0e2a8;border-radius:8px;padding:10px 14px}
+@media(max-width:760px){.two{grid-template-columns:1fr}.vb{padding:14px}.stat{grid-template-columns:repeat(3,1fr)}}
+#toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:#22252b;color:#fff;padding:10px 18px;border-radius:999px;z-index:99;font-size:15px}
+#toast[hidden]{display:none}
+img.ch{width:64px;height:64px;object-fit:contain;border-radius:12px}
+.appline{background:#f6f7fa;border-radius:10px;padding:8px 12px;margin:8px 0;font-size:15px}
+.appline a,.gh a{color:#2f6fde;text-decoration:none;font-weight:600}
+ol.sl{margin:0;padding-left:1.6em;font-family:"Times New Roman",Times,"Malgun Gothic",serif}ol.sl li{margin:.7em 0}
+ol.sl.kor{font-family:"Malgun Gothic","맑은 고딕","Apple SD Gothic Neo",sans-serif}
+.sent{display:grid;grid-template-columns:1.1fr .9fr;gap:22px;padding:10px 0;border-top:1px solid #e6e6e0}
+.sent .en{font-family:"Times New Roman",Times,serif}.sent .kor{color:#1d3f8f}
+.xg{border:1px solid #c9d8fb;background:#f3f7ff;border-radius:12px;padding:9px 12px 11px;margin:9px 0}
+.xg.xm{border-color:#b5dfc6;background:#eef8f2}.xg.xs{border-color:#f3d5a4;background:#fff6e8}
+.xg .xh{font-weight:700;font-size:16px;margin:0 2px 2px;color:#2f57b0}.xg.xm .xh{color:#1f7a4a}.xg.xs .xh{color:#a8650d}
+.xg .chips{margin:6px 0 0}.xg .chip{background:#fff}.xg .chip.ok{background:#e7f6ec}
+
+/* 시험보기: 이그잼포유 워크북 PDF 쪽 그대로(11-10) */
+.vb .in.wide{max-width:none}
+.stgs{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin:0 0 14px;font-size:15px}
+.pgs{max-width:1100px;margin:0 auto}
+.pgs img.pg{display:block;width:var(--z,100%);max-width:none;min-height:120px;margin:0 auto 16px;background:#fff;box-shadow:0 0 0 1px #d8d8d2,0 2px 10px rgba(0,0,0,.08);font-size:15px;color:#888}
+
+.bk{display:flex;align-items:center;gap:12px;cursor:pointer}.bk b{flex:1;font-size:18px}
+.gh{font-weight:700;margin:14px 2px 0}
+.pgs .ph{position:relative;width:var(--z,100%);margin:0 auto 16px;background:#fff;box-shadow:0 0 0 1px #d8d8d2,0 2px 10px rgba(0,0,0,.08)}
+.pgs .ph img{position:absolute;inset:0;width:100%;height:100%;display:block}
+.pgs .ph i{position:absolute;left:10px;top:8px;font-style:normal;font-size:13px;color:#9aa0a8}
+#vb{overflow:auto}
+</style>
+</head>
+<body>
+<div id="wrap">
+  <h1 id="ttl">교재 원문</h1>
+  <div class="d" id="sub">이승수 영어 · 선생님·조교 선생님 전용 · 교재를 그대로 봅니다</div>
+  <section id="login" class="card" hidden>
+    <h2>선생님 코드 또는 조교 선생님 코드</h2>
+    <div class="row"><input id="code" type="password" placeholder="코드" autocomplete="off" style="flex:1"><button id="go">열기</button></div>
+    <div id="msg" class="d" style="margin-top:8px"></div>
+  </section>
+  <div id="list" hidden></div>
+  <div id="book" hidden></div>
+</div>
+<div id="viewer" hidden>
+  <div class="vh"><button class="ghost sm" id="vClose">‹ 지문 목록</button><b id="vTitle"></b>
+    <button class="ghost sm" id="vSm">작게</button><button class="ghost sm" id="vBig">크게</button>
+    <button class="ghost sm" id="vPrev">이전 지문</button><button class="ghost sm" id="vNext">다음 지문</button></div>
+  <div class="vb" id="vb"><div class="pgs" id="pgs"></div></div>
+</div>
+<script>
+const D = {"url": "https://script.google.com/macros/s/AKfycbyKGf4h-cdSKteg8QPTjZTvUVsbowp4S0WvaRuyzjFq4Xwm1nc9mOKl70P0tqKzyOKm/exec", "built": "11-11 12:55"};
+// 해석 시험 앱(학생)·조교 선생님 앱 공용(2026-11-10): 지문 원본 모양 그리기 · 서버 통신 · 대기 줄 계산 · 실시간 신호
+const $ = s => document.querySelector(s);
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
+const pad = n => String(n).padStart(2, '0');
+const ymd = d => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+const hm = ms => { const d = new Date(ms); return `${pad(d.getHours())}:${pad(d.getMinutes())}`; };
+const norm = s => String(s || '').normalize('NFC').replace(/\s+/g, '');
+const minTxt = m => m >= 60 ? `${Math.floor(m / 60)}시간 ${m % 60}분` : `${m}분`;
+
+// ── 지문을 교재 원본 모양으로: 본문 / 각주(* 낱말: 뜻) / 선택지 ①~⑤ ──
+function splitText(t) {
+  t = String(t || '');
+  let body = t, ch = [], foot = '';
+  const idx = [...t.matchAll(/①/g)].map(m => m.index).filter(i => !/^①\s*\)/.test(t.slice(i, i + 4)));   // 「( ① )」 삽입 자리는 선택지가 아니다
+  if (idx.length) {
+    const i = idx[idx.length - 1], tail = t.slice(i);
+    if (tail.length <= t.length * 0.5 && /②[\s\S]*③[\s\S]*④/.test(tail)) { body = t.slice(0, i).trim(); ch = tail.split(/(?=[①②③④⑤])/).map(x => x.trim()).filter(Boolean); }
+  }
+  const m = body.match(/\s\*{1,2}\s?[A-Za-z][A-Za-z \-’'.]*(\([^)]*\))?\s?:/);
+  if (m && m.index > body.length * 0.5) { foot = body.slice(m.index).trim(); body = body.slice(0, m.index).trim(); }
+  return {body, ch, foot};
+}
+const bodyHTML = s => esc(s).replace(/_{3,}/g, '<span class="blank"></span>');
+function passageHTML(stem, text) {
+  const p = splitText(text);
+  return `${stem ? `<div class="stem">${esc(stem)}</div>` : ''}<div class="ptext">${bodyHTML(p.body)}</div>`
+    + (p.foot ? `<div class="foot">${esc(p.foot)}</div>` : '')
+    + (p.ch.length ? `<div class="choices">${p.ch.map(c => `<div>${bodyHTML(c)}</div>`).join('')}</div>` : '');
+}
+
+// ── 서버(구글 Apps Script). 미리보기(PRE)에서는 이 브라우저 안의 가짜 서버로 화면만 확인한다 ──
+let API_URL = '';
+async function apiGet(qs) {
+  if (typeof PRE !== 'undefined' && PRE) return mockApi(Object.fromEntries(new URLSearchParams(qs)), true);
+  const ctl = new AbortController(), t = setTimeout(() => ctl.abort(), 30000);
+  try { return JSON.parse(await (await fetch(API_URL + '?' + qs, {signal: ctl.signal})).text()); } catch (e) { return {ok: false, error: 'net'}; } finally { clearTimeout(t); }
+}
+async function apiPost(body) {
+  if (typeof PRE !== 'undefined' && PRE) return mockApi(body, false);
+  const ctl = new AbortController(), t = setTimeout(() => ctl.abort(), 40000);
+  try { return JSON.parse(await (await fetch(API_URL, {method: 'POST', signal: ctl.signal, headers: {'Content-Type': 'text/plain;charset=utf-8'}, body: JSON.stringify(body)})).text()); } catch (e) { return {ok: false, error: 'net'}; } finally { clearTimeout(t); }
+}
+function mockApi(d, get) {   // 서버 tq·tpass 갈래를 흉내(localStorage 「trans-mock」 — 두 미리보기 화면이 같은 상태를 본다)
+  const today = ymd(new Date()), MBY = new URLSearchParams(location.search).get('role') === 't' ? 't' : 'a';   // 미리보기: ?role=t = 선생님
+  let M = null; try { M = JSON.parse(localStorage.getItem('trans-mock') || 'null'); } catch (e) {}
+  if (!M || M.day !== today) M = {day: today, in: {}, q: [], hist: (M && M.hist) || {}, pass: (M && M.pass) || []};
+  const save = () => { try { localStorage.setItem('trans-mock', JSON.stringify(M)); } catch (e) {} };
+  const view = () => { const used = {}; for (const n in M.hist) used[n] = [M.hist[n][today] || 0, Object.values(M.hist[n]).reduce((a, b) => a + b, 0)]; return {ok: true, now: Date.now(), day: today, in: M.in, q: M.q, used, topic: '', role: MBY, pv: M.pv || ''}; };
+  if (get) {
+    if (d.tq !== undefined) return view();
+    if (d.assist !== undefined) return {ok: true, rows: M.pass, key: ''};
+    if (d.mytpass !== undefined) return {ok: true, rows: M.pass.filter(r => r[0] === d.mytpass).map(r => r.slice(1))};
+    return {ok: false};
+  }
+  if (d.event === 'tpass') {
+    if (d.undo) M.pass = M.pass.filter(r => !(r[0] === d.name && d.items.some(x => x[0] === r[2] && x[1] === r[3])));
+    else for (const x of d.items) if (!M.pass.some(r => r[0] === d.name && r[2] === x[0] && r[3] === x[1])) M.pass.push([d.name, d.day || today, x[0], x[1]]);
+    M.pv = String(Date.now()); save(); return {ok: true, rows: M.pass};
+  }
+  if (d.event === 'tq') {
+    const asst = !!d.who, name = d.who || d.name, now = Date.now(), at = M.q.findIndex(e => e.n === name), min = Math.min(20, Math.max(1, Math.round(+d.min || 10))); let busy = '';
+    const end = e => { const m = Math.max(1, Math.round((now - e.s) / 60000)); M.hist[e.n] = M.hist[e.n] || {}; M.hist[e.n][today] = (M.hist[e.n][today] || 0) + m; };
+    if (d.act === 'in') M.in[name] = M.in[name] || now;
+    else if (d.act === 'out') { if (at >= 0) { if (M.q[at].s) end(M.q[at]); M.q.splice(at, 1); } delete M.in[name]; }
+    else if (d.act === 'book') { if (at >= 0) { if (!M.q[at].s) M.q[at].m = min; } else M.q.push({n: name, m: min, at: now, s: 0}); if (asst) M.in[name] = M.in[name] || now; }
+    else if (d.act === 'cancel') { if (at >= 0 && (!M.q[at].s || asst)) M.q.splice(at, 1); }
+    else if (d.act === 'start') { if (at >= 0 && M.q[at].s && (M.q[at].by || 'a') !== MBY) busy = M.q[at].by || 'a'; else { M.q.forEach(e => { if (e.s && e.n !== name && (e.by || 'a') === MBY) end(e); }); M.q = M.q.filter(e => !e.s || e.n === name || (e.by || 'a') !== MBY); const i = M.q.findIndex(e => e.n === name); if (i >= 0) { if (!M.q[i].s) { M.q[i].s = now; M.q[i].by = MBY; } } else M.q.unshift({n: name, m: min, at: now, s: now, by: MBY}); M.in[name] = M.in[name] || now; } }
+    else if (d.act === 'end') { if (at >= 0 && M.q[at].s) { end(M.q[at]); M.q.splice(at, 1); } }
+    save(); const v = view(); if (busy) v.busy = busy; return v;
+  }
+  return {ok: false};
+}
+
+// ── 대기 줄: 지금 시험 중인 학생 → 신청 순서. wait = 내 차례까지 예상 분(앞 사람들의 남은 시간 합) ──
+let TQ = null, TQ_AT = 0;
+function tqSet(v) { if (v && v.ok) { TQ = v; TQ_AT = Date.now(); } return TQ; }
+const tqNow = () => TQ ? TQ.now + (Date.now() - TQ_AT) : Date.now();
+function tqList() {   // 시험 보는 사람이 둘(선생님·조교 선생님)이면 줄이 두 갈래로 빠진다 — 기다리는 학생은 먼저 비는 쪽으로
+  if (!TQ) return {list: [], total: 0, next: 0};
+  const now = tqNow(), q = [...TQ.q].sort((a, b) => (b.s ? 1 : 0) - (a.s ? 1 : 0) || a.at - b.at), lanes = [];
+  let wi = 0;
+  const list = q.map(e => {
+    if (e.s) { const el = Math.floor((now - e.s) / 60000); lanes.push(Math.max(1, e.m - el)); return Object.assign({}, e, {pos: -1, wait: 0, el}); }
+    if (!lanes.length) lanes.push(0);
+    let k = 0; lanes.forEach((v, i) => { if (v < lanes[k]) k = i; });
+    const o = Object.assign({}, e, {pos: wi++, wait: lanes[k], el: 0}); lanes[k] += e.m; return o;
+  });
+  return {list, total: lanes.length ? Math.max(...lanes) : 0, next: lanes.length ? Math.min(...lanes) : 0};
+}
+const byTxt = e => e.by === 't' ? '선생님' : '조교 선생님';
+const tqUsed = n => (TQ && TQ.used && TQ.used[n]) || [0, 0];
+
+// ── 실시간: 서버가 바뀔 때마다 ntfy.sh 비밀 주제로 빈 신호 → 바로 다시 받는다. 신호가 끊기면 15초마다, 이어져 있어도 60초마다 확인 ──
+let LIVE_ES = null, LIVE_OK = false;
+function liveStart(pull) {
+  let last = 0;
+  const run = async () => { last = Date.now(); await pull(); if (TQ && TQ.topic && !LIVE_ES && window.EventSource) {
+    LIVE_ES = new EventSource('https://ntfy.sh/' + encodeURIComponent(TQ.topic) + '/sse');
+    LIVE_ES.onopen = () => { LIVE_OK = true; }; LIVE_ES.onerror = () => { LIVE_OK = false; };
+    LIVE_ES.onmessage = () => run();
+  } };
+  run();
+  setInterval(() => { if (document.hidden) return; if (Date.now() - last > (LIVE_OK ? 60000 : 15000)) run(); }, 3000);
+  document.addEventListener('visibilitychange', () => { if (!document.hidden && Date.now() - last > 5000) run(); });
+  window.addEventListener('storage', e => { if (e.key === 'trans-mock') run(); });   // 미리보기: 다른 창에서 바뀌면 바로
+  return run;
+}
+
+API_URL = D.url || '';
+let KEY = D.pk || '', M = null, B = null, CURP = -1;
+const ls = { get(k) { try { return localStorage.getItem('leess-orig:' + k) || ''; } catch (e) { return ''; } }, set(k, v) { try { localStorage.setItem('leess-orig:' + k, v); } catch (e) {} } };
+function savedCode() {
+  for (const k of ['leess-assist:code', 'leess:tcode']) {
+    let v = ''; try { v = localStorage.getItem(k) || ''; } catch (e) {}
+    if (v) { try { const j = JSON.parse(v); if (typeof j === 'string') v = j; } catch (e) {} return v; }
+  }
+  return '';
+}
+// ── 빨리 열기(11-11): 열쇠·목록은 이 기기에 두고 서버를 기다리지 않는다 · 쪽 그림은 한 번 받으면 기기에 저장 · 고른 쪽부터 먼저 받는다 ──
+let CKEY = null;
+async function dec(buf) {
+  const raw = new Uint8Array(buf);
+  if (!CKEY) CKEY = await crypto.subtle.importKey('raw', Uint8Array.from(KEY.match(/../g), x => parseInt(x, 16)), 'AES-GCM', false, ['decrypt']);
+  return crypto.subtle.decrypt({name: 'AES-GCM', iv: raw.slice(0, 12)}, CKEY, raw.slice(12));
+}
+async function cget(url) {   // 쪽 그림 이름은 내용에 묶여 있어 바뀌지 않는다 → 저장해 둔 것이 있으면 인터넷을 거치지 않는다
+  let c = null;
+  try { c = await caches.open('leess-orig-2'); const h = await c.match(url); if (h) return await h.arrayBuffer(); } catch (e) {}
+  const f = await fetch(url); if (!f.ok) throw new Error('no page');
+  if (c) c.put(url, f.clone()).catch(() => {});
+  return f.arrayBuffer();
+}
+function wipe() { for (const k of ['key', 'man', 'manv']) ls.set(k, ''); KEY = ''; CKEY = null; try { caches.delete('leess-orig-2'); } catch (e) {} }
+async function openMan() {
+  if (ls.get('manv') === (D.built || '-')) { try { const m = JSON.parse(ls.get('man')); if (m && m.books) return m; } catch (e) {} }
+  const f = await fetch('orig/man.bin?_=' + encodeURIComponent(D.built || ''), {cache: 'no-cache'}); if (!f.ok) throw new Error('no man');
+  const t = await new Response(new Blob([await dec(await f.arrayBuffer())]).stream().pipeThrough(new DecompressionStream('gzip'))).text();
+  const m = JSON.parse(t); ls.set('man', t); ls.set('manv', D.built || '-');
+  return m;
+}
+async function login(code) {
+  const msg = t => { $('#msg').textContent = t; };
+  const fast = !D.pk && code && ls.get('key') && ls.get('kc') === code;   // 이 기기에서 같은 코드로 연 적이 있으면 바로 연다
+  if (fast) KEY = ls.get('key');
+  if (!KEY) {
+    if (!code) { $('#login').hidden = false; return; }
+    msg('확인하는 중…');
+    const r = await apiGet('assist=' + encodeURIComponent(code));
+    if (!r || !r.ok) { $('#login').hidden = false; msg(r && r.error === 'code' ? '코드가 맞지 않습니다.' : '서버에 연결하지 못했습니다. 인터넷을 확인해 주세요.'); return; }
+    KEY = r.key; ls.set('key', KEY); ls.set('kc', code); try { localStorage.setItem('leess-assist:code', code); } catch (e) {}
+  }
+  try { M = await openMan(); }
+  catch (e) { if (fast) { wipe(); return login(code); } $('#login').hidden = false; msg('교재 자료를 열지 못했습니다.'); return; }
+  $('#login').hidden = true; route();
+  if (fast) apiGet('assist=' + encodeURIComponent(code)).then(r => {   // 화면은 먼저 열고, 코드가 아직 맞는지는 뒤에서 확인한다(코드가 바뀌었으면 닫는다)
+    if (r && r.error === 'code') { wipe(); ls.set('kc', ''); location.reload(); }
+    else if (r && r.ok && r.key && r.key !== KEY) { wipe(); location.reload(); }
+  });
+}
+function route() {
+  const q = new URLSearchParams(location.hash.slice(1) || location.search.slice(1)), r = q.get('b');
+  const b = r && M.books.find(x => x.r === r);
+  $('#viewer').hidden = true;
+  if (b) openBook(b); else showList();
+}
+function showList() {
+  B = null; $('#book').hidden = true; $('#list').hidden = false; $('#ttl').textContent = '교재 원문';
+  $('#list').innerHTML = M.books.map(b => `<section class="card bk" data-b="${esc(b.r)}"><b>${esc(b.t)}</b><span class="d">${b.P.length}지문 · ${b.pg.length}쪽</span><span>›</span></section>`).join('');
+}
+function openBook(b) {
+  B = b; $('#list').hidden = true; $('#book').hidden = false; $('#ttl').textContent = b.t;
+  const gs = []; for (const p of b.P) { if (!gs.length || gs[gs.length - 1][0] !== p[1]) gs.push([p[1], []]); gs[gs.length - 1][1].push(p); }
+  const last = +ls.get('pg:' + b.r) || 0;
+  $('#book').innerHTML = `<section class="card"><div class="row"><button class="ghost" id="bBack">‹ 교재 목록</button><b style="flex:1">지문을 누르면 교재 원문이 열립니다</b>
+    <button class="ghost" data-pg="0">처음부터 넘겨 보기</button><a href="../${esc(b.r)}/" style="text-decoration:none"><button class="ok" type="button">✏️ 문제 풀기(학생 화면)</button></a>${last ? `<button data-pg="${last}">보던 곳(${last + 1}쪽) 이어 보기</button>` : ''}</div>`
+    + gs.map(g => `<div class="gh">${esc(g[0])}</div><div class="chips">${g[1].map(p => `<span class="chip" data-p="${esc(p[0])}">${esc(p[2].startsWith(g[0]) ? p[2].slice(g[0].length).trim() || p[2] : p[2])}</span>`).join('')}</div>`).join('') + '</section>';
+  buildPages();
+}
+// ── 쪽 그림: 보이는 쪽 근처만 읽고, 멀어지면 내려놓는다 ──
+let IO = null; const URLS = {};
+const Q = []; let RUN = 0, FOCUS = 0, BAD = 0;
+function want(ph) { if (ph.dataset.on) return; ph.dataset.on = '1'; Q.push(ph); pump(); }
+function pump() {   // 한 번에 4장까지, 지금 보는 쪽에 가까운 것부터
+  while (RUN < 4 && Q.length) {
+    Q.sort((a, b) => Math.abs(a.dataset.i - FOCUS) - Math.abs(b.dataset.i - FOCUS));
+    const ph = Q.shift(); if (!ph.dataset.on || !ph.isConnected) continue;
+    RUN++; load(ph).finally(() => { RUN--; pump(); });
+  }
+}
+async function load(ph) {
+  const i = +ph.dataset.i, nm = B.pg[i], r = B.r;
+  try {
+    const u = URL.createObjectURL(new Blob([await dec(await cget('orig/' + nm + '.bin'))], {type: 'image/webp'}));
+    if (!ph.dataset.on || !ph.isConnected || !B || B.r !== r) { URL.revokeObjectURL(u); return; }
+    URLS[i] = u; ph.innerHTML = `<img alt="${i + 1}쪽" decoding="async" src="${u}">`;
+  } catch (e) {
+    delete ph.dataset.on;
+    if (e && e.message === 'no page') {   // 저장해 둔 목록이 옛것(그림이 새로 만들어짐) → 목록을 새로 받아 한 번만 다시 연다
+      let once = ''; try { once = sessionStorage.getItem('leess-orig:re') || ''; } catch (x) {}
+      if (once !== nm) { try { sessionStorage.setItem('leess-orig:re', nm); } catch (x) {} ls.set('manv', ''); location.reload(); }
+      return;
+    }
+    if (e && e.name === 'OperationError' && ++BAD === 3 && ls.get('key')) { wipe(); location.reload(); }   // 저장해 둔 열쇠가 맞지 않음 → 서버에서 다시 받는다
+  }
+}
+function unload(ph) { const i = +ph.dataset.i; if (URLS[i]) { URL.revokeObjectURL(URLS[i]); delete URLS[i]; } delete ph.dataset.on; ph.innerHTML = `<i>${i + 1}쪽</i>`; }
+let ZM = +ls.get('z') || 100;
+const setZM = d => { ZM = Math.max(50, Math.min(260, ZM + d)); ls.set('z', ZM); $('#pgs').style.setProperty('--z', ZM + '%'); };
+function buildPages() {
+  if (IO) IO.disconnect(); Q.length = 0; for (const i in URLS) { URL.revokeObjectURL(URLS[i]); delete URLS[i]; }
+  $('#pgs').innerHTML = B.pg.map((_, i) => `<div class="ph" data-i="${i}" style="aspect-ratio:1/${B.ar}"><i>${i + 1}쪽</i></div>`).join('');
+  $('#pgs').style.setProperty('--z', ZM + '%');
+  IO = new IntersectionObserver(es => { for (const e of es) e.isIntersecting ? want(e.target) : (e.target.dataset.on && unload(e.target)); }, {root: $('#vb'), rootMargin: '200% 0px'});
+  document.querySelectorAll('#pgs .ph').forEach(x => IO.observe(x));
+}
+function goPage(i) {
+  $('#viewer').hidden = false;
+  FOCUS = Math.max(0, Math.min(B.pg.length - 1, i));
+  const ph = document.querySelector(`#pgs .ph[data-i="${FOCUS}"]`);
+  if (ph) want(ph);   // 고른 쪽을 가장 먼저 받는다
+  if (ph) $('#vb').scrollTop = ph.offsetTop - $('#pgs').offsetTop;
+  head();
+}
+function goP(k) { CURP = Math.max(0, Math.min(B.P.length - 1, k)); goPage(Math.max(0, B.P[CURP][3])); }
+function head() {   // 지금 보는 쪽과 그 쪽의 지문
+  if (!B || $('#viewer').hidden) return;
+  const top = $('#vb').scrollTop + $('#vb').clientHeight * .35; let i = 0;
+  for (const ph of document.querySelectorAll('#pgs .ph')) { if (ph.offsetTop - $('#pgs').offsetTop > top) break; i = +ph.dataset.i; }
+  FOCUS = i; ls.set('pg:' + B.r, i);
+  const here = B.P.filter(p => p[3] === i).map(p => p[2].startsWith(p[1]) ? p[2] : p[1] + ' ' + p[2]);
+  const k = B.P.findIndex(p => p[3] === i); if (k >= 0 && (CURP < 0 || B.P[CURP][3] !== i)) CURP = k;
+  $('#vTitle').textContent = `${B.t} · ${i + 1} / ${B.pg.length}쪽${here.length ? ' · ' + here.slice(0, 3).join(', ') + (here.length > 3 ? ' …' : '') : ''}`;
+}
+let HT = 0; $('#vb').addEventListener('scroll', () => { clearTimeout(HT); HT = setTimeout(head, 150); }, {passive: true});
+document.addEventListener('click', e => {
+  const t = e.target.closest('[data-b],[data-p],[data-pg],button'); if (!t) return;
+  if (t.dataset.b) { location.hash = 'b=' + t.dataset.b; return; }
+  if (t.dataset.p) return goP(B.P.findIndex(p => p[0] === t.dataset.p));
+  if (t.dataset.pg) { CURP = -1; return goPage(+t.dataset.pg); }
+  if (t.id === 'bBack') { location.hash = ''; return; }
+  if (t.id === 'vClose') { $('#viewer').hidden = true; return; }
+  if (t.id === 'vSm') return setZM(-15);
+  if (t.id === 'vBig') return setZM(15);
+  if (t.id === 'vPrev') return goP((CURP < 0 ? 0 : CURP) - 1);
+  if (t.id === 'vNext') return goP(CURP + 1);
+  if (t.id === 'go') return login($('#code').value.trim());
+});
+$('#code').addEventListener('keydown', e => { if (e.key === 'Enter') login($('#code').value.trim()); });
+addEventListener('hashchange', () => { if (M) route(); });
+try { caches.delete('leess-orig-1'); } catch (e) {}   // 11-11 화질 개선 전 그림
+login(savedCode());
+</script>
+<!--hubback-->
+<script>/* 통합앱에서 열었을 때만 맨 위에 「‹ 전체 앱」(hubback.py) */
+(function () {
+  var u; try { u = sessionStorage.getItem('hub:back'); } catch (e) {}
+  if (!u || u.indexOf(location.origin + '/') !== 0) return;
+  var box = document.createElement('div'), a = document.createElement('a');
+  box.setAttribute('style', 'max-width:780px;margin:0 auto;padding:10px 16px 0');
+  a.id = 'hubBack'; a.href = u; a.textContent = '‹ 전체 앱';
+  a.setAttribute('style', 'display:inline-block;padding:6px 14px 6px 10px;border:1px solid var(--line,#e1e0da);border-radius:999px;background:var(--card,#fff);color:var(--acc,#2f5bd3);font:600 14px/1.4 -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;text-decoration:none');
+  a.onclick = function (e) {
+    var t = document.getElementById('test'), h = document.getElementById('home');   // 시험 화면이 있는 앱은 그것으로, 없으면 첫 화면이 보이는지로
+    var idle = t ? (t.hidden || t.offsetParent === null) : (!!h && !h.hidden && h.offsetParent !== null);
+    if (!idle && !confirm('전체 앱 목록으로 돌아갈까요?\n지금 푸는 문제는 이어서 풀 수 없을 수도 있습니다.')) e.preventDefault();
+  };
+  box.appendChild(a);
+  document.body.insertBefore(box, document.body.firstChild);
+  // 선생님 앱(leess-teacher)에서 왔으면 선생님 화면을 바로 연다(코드는 선생님 앱이 이 앱의 코드 자리에 넣어 두었다). 한 번만.
+  var tf; try { tf = sessionStorage.getItem('hub:teacher'); sessionStorage.removeItem('hub:teacher'); } catch (e) {}
+  var tb = document.getElementById('teacherBtn');
+  if (tf === '1' && tb && !tb.hidden) tb.click();
+})();
+</script>
+<script id="tdevJs">
+/* 선생님 기기 자동 등록(2026-11-10 사용자: 아이패드가 앱마다 「다른 학생 이름으로 등록」으로 막힘 → 「모든 앱을 고쳐」).
+   기기ID는 앱·홈 화면 앱마다 따로 생긴다. 이 브라우저에 선생님 코드가 있으면 저장소의 모든 기기ID를 서버(tdev)에 등록해 이름 잠금·경고에서 뺀다.
+   코드가 없는 기기는 이름 칸에 선생님 코드를 한 번 치면 등록된다(코드는 서버가 확인, 화면·주소에 남기지 않는다). tdev_all.py가 게시 때마다 끼운다. */
+(function () {
+  var U = 'https://script.google.com/macros/s/AKfycbyKGf4h-cdSKteg8QPTjZTvUVsbowp4S0WvaRuyzjFq4Xwm1nc9mOKl70P0tqKzyOKm/exec', RX = /^[A-Za-z0-9.-]{3,40}$/, busy = false, tries = 0, bad = {};
+  function val(k) { var v = null; try { v = localStorage.getItem(k); v = JSON.parse(v); } catch (e) {} return typeof v === 'string' ? v : ''; }
+  function keys(re) { var a = []; try { for (var i = 0; i < localStorage.length; i++) { var k = localStorage.key(i); if (re.test(k)) a.push(k); } } catch (e) {} return a; }
+  function ids() { var a = []; keys(/(^|:)device$/).forEach(function (k) { var v = val(k); if (RX.test(v) && a.indexOf(v) < 0) a.push(v); }); return a.sort(); }
+  function codes() { var a = []; ['leess:tcode'].concat(keys(/(^|:)tcode$/)).forEach(function (k) { var v = val(k); if (v && a.indexOf(v) < 0) a.push(v); }); return a; }
+  function post(code, devs) {
+    return fetch(U, {method: 'POST', headers: {'Content-Type': 'text/plain;charset=utf-8'}, body: JSON.stringify({event: 'tdev', code: code, devs: devs})})
+      .then(function (r) { return r.text(); }).then(function (t) { try { return !!JSON.parse(t).ok; } catch (e) { return false; } }).catch(function () { return null; });
+  }
+  function sync(codeIn) {   // true = 등록됨
+    var devs = ids(), sig = devs.join(',');
+    if (!devs.length || busy) return Promise.resolve(false);
+    var cs = codeIn ? [codeIn] : codes().filter(function (c) { return bad[c] !== sig; });
+    if (!cs.length) return Promise.resolve(false);
+    if (!codeIn && val('leess:tcode') && localStorage.getItem('leess:tdevs') === sig) return Promise.resolve(true);
+    busy = true;
+    var i = 0;
+    function next() {
+      if (i >= cs.length) return false;
+      var c = cs[i++];
+      return post(c, devs).then(function (ok) {
+        if (ok) { try { localStorage.setItem('leess:tdevs', sig); localStorage.setItem('leess:tcode', JSON.stringify(c)); } catch (e) {} return true; }
+        if (ok === false) bad[c] = sig;
+        return next();
+      });
+    }
+    return Promise.resolve(next()).then(function (r) { busy = false; return r; }, function () { busy = false; return false; });
+  }
+  var t1 = 0, t2 = 0;
+  function later() { clearTimeout(t1); t1 = setTimeout(function () { sync(); }, 900); }
+  function isName(el) { return el && el.tagName === 'INPUT' && (el.id === 'name' || /이름/.test(el.getAttribute('placeholder') || '')); }
+  document.addEventListener('input', function (e) {   // 이름 칸에 선생님 코드를 치면 등록
+    var el = e.target; if (!isName(el)) return;
+    clearTimeout(t2);
+    t2 = setTimeout(function () {
+      var v = (el.value || '').trim();
+      if (!/^[!-~]{4,40}$/.test(v) || tries >= 6) return;
+      tries++;
+      sync(v).then(function (ok) { if (ok && (el.value || '').trim() === v) { el.value = ''; try { el.dispatchEvent(new Event('input', {bubbles: true})); } catch (e) {} alert('선생님 기기로 등록했습니다. 이제 학생 이름으로 들어가시면 됩니다.'); } });
+    }, 700);
+  }, true);
+  document.addEventListener('click', later, true);   // 앱 안에서 코드를 넣은 직후(일곱 번 누르기 등)에도 바로 등록
+  document.addEventListener('visibilitychange', function () { if (!document.hidden) later(); });
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', later); else later();
+  setTimeout(function () { sync(); }, 3000);
+})();
+</script>
+</body>
+</html>
