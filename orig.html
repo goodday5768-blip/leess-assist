@@ -95,7 +95,7 @@ ol.sl.kor{font-family:"Malgun Gothic","맑은 고딕","Apple SD Gothic Neo",sans
   <div class="vb" id="vb"><div class="pgs" id="pgs"></div></div>
 </div>
 <script>
-const D = {"url": "https://script.google.com/macros/s/AKfycbyKGf4h-cdSKteg8QPTjZTvUVsbowp4S0WvaRuyzjFq4Xwm1nc9mOKl70P0tqKzyOKm/exec", "built": "11-11 13:27"};
+const D = {"url": "https://script.google.com/macros/s/AKfycbyKGf4h-cdSKteg8QPTjZTvUVsbowp4S0WvaRuyzjFq4Xwm1nc9mOKl70P0tqKzyOKm/exec", "built": "11-11 13:40"};
 // 해석 시험 앱(학생)·조교 선생님 앱 공용(2026-11-10): 지문 원본 모양 그리기 · 서버 통신 · 대기 줄 계산 · 실시간 신호
 const $ = s => document.querySelector(s);
 const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
@@ -202,6 +202,22 @@ function liveStart(pull) {
   document.addEventListener('visibilitychange', () => { if (!document.hidden && Date.now() - last > 5000) run(); });
   window.addEventListener('storage', e => { if (e.key === 'trans-mock') run(); });   // 미리보기: 다른 창에서 바뀌면 바로
   return run;
+}
+
+// 새 판 자동 반영(11-11 사용자 요청): 게시하면 ver.txt가 바뀐다. 열려 있는 앱이 1분마다(화면에 돌아올 때도) 비교해, 지문을 보고 있지 않을 때 스스로 새 판으로 바뀐다.
+// 브라우저가 앱 파일을 10분 쥐고 있어도 주소에 v=판 번호를 붙여 새로 받는다. busy()가 참이면(지문·학생 화면) 끝날 때까지 미룬다.
+function autoUpdate(ver, busy) {
+  if (!ver || !/^https?:/.test(location.protocol) || /^(localhost|127\.)/.test(location.hostname)) return;
+  let going = false;
+  const chk = async () => {
+    if (going || document.hidden) return;
+    try {
+      const t = (await (await fetch('ver.txt?_=' + Date.now(), {cache: 'no-store'})).text()).trim();
+      if (!/^\d{14}$/.test(t) || t <= ver || (busy && busy())) return;
+      going = true; const u = new URL(location.href); u.searchParams.set('v', t); location.replace(u.toString());
+    } catch (e) {}
+  };
+  setInterval(chk, 60000); document.addEventListener('visibilitychange', chk); setTimeout(chk, 5000);
 }
 
 API_URL = D.url || '';
