@@ -66,7 +66,8 @@ ol.sl.kor{font-family:"Malgun Gothic","맑은 고딕","Apple SD Gothic Neo",sans
 .vb .in.wide{max-width:none}
 .stgs{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin:0 0 14px;font-size:15px}
 .pgs{max-width:1100px;margin:0 auto}
-.pgs img.pg{display:block;width:var(--z,100%);max-width:none;min-height:120px;margin:0 auto 16px;background:#fff;box-shadow:0 0 0 1px #d8d8d2,0 2px 10px rgba(0,0,0,.08);font-size:15px;color:#888}
+.pgs .pgw{position:relative;width:var(--z,100%);margin:0 auto 16px}
+.pgs img.pg{display:block;width:100%;max-width:none;min-height:120px;margin:0;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;background:#fff;box-shadow:0 0 0 1px #d8d8d2,0 2px 10px rgba(0,0,0,.08);font-size:15px;color:#888}
 
 .bk{display:flex;align-items:center;gap:12px;cursor:pointer}.bk b{flex:1;font-size:18px}
 .gh{font-weight:700;margin:14px 2px 0}
@@ -95,7 +96,7 @@ ol.sl.kor{font-family:"Malgun Gothic","맑은 고딕","Apple SD Gothic Neo",sans
   <div class="vb" id="vb"><div class="pgs" id="pgs"></div></div>
 </div>
 <script>
-const D = {"url": "https://script.google.com/macros/s/AKfycbyKGf4h-cdSKteg8QPTjZTvUVsbowp4S0WvaRuyzjFq4Xwm1nc9mOKl70P0tqKzyOKm/exec", "built": "11-11 21:20"};
+const D = {"url": "https://script.google.com/macros/s/AKfycbyKGf4h-cdSKteg8QPTjZTvUVsbowp4S0WvaRuyzjFq4Xwm1nc9mOKl70P0tqKzyOKm/exec", "built": "11-11 21:23"};
 // 해석 시험 앱(학생)·조교 선생님 앱 공용(2026-11-10): 지문 원본 모양 그리기 · 서버 통신 · 대기 줄 계산 · 실시간 신호
 const $ = s => document.querySelector(s);
 const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
@@ -322,7 +323,7 @@ let ZM = +ls.get('z') || 100;
 const setZM = d => { ZM = Math.max(50, Math.min(260, ZM + d)); ls.set('z', ZM); $('#pgs').style.setProperty('--z', ZM + '%'); };
 function buildPages() {
   if (IO) IO.disconnect(); Q.length = 0; for (const i in URLS) { URL.revokeObjectURL(URLS[i]); delete URLS[i]; }
-  $('#pgs').innerHTML = B.pg.map((_, i) => `<div class="ph" data-i="${i}" style="aspect-ratio:1/${B.ar}"><i>${i + 1}쪽</i></div>`).join('');
+  $('#pgs').innerHTML = B.pg.map((_, i) => `<div class="ph ink-page" data-p="${B.r}-${i}" data-i="${i}" style="aspect-ratio:1/${B.ar}"><i>${i + 1}쪽</i></div>`).join('');
   $('#pgs').style.setProperty('--z', ZM + '%');
   IO = new IntersectionObserver(es => { for (const e of es) e.isIntersecting ? want(e.target) : (e.target.dataset.on && unload(e.target)); }, {root: $('#vb'), rootMargin: '200% 0px'});
   document.querySelectorAll('#pgs .ph').forEach(x => IO.observe(x));
