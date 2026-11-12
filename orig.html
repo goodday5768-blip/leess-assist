@@ -96,7 +96,7 @@ ol.sl.kor{font-family:"Malgun Gothic","맑은 고딕","Apple SD Gothic Neo",sans
   <div class="vb" id="vb"><div class="pgs" id="pgs"></div></div>
 </div>
 <script>
-const D = {"url": "https://script.google.com/macros/s/AKfycbyKGf4h-cdSKteg8QPTjZTvUVsbowp4S0WvaRuyzjFq4Xwm1nc9mOKl70P0tqKzyOKm/exec", "built": "11-12 19:37"};
+const D = {"url": "https://script.google.com/macros/s/AKfycbyKGf4h-cdSKteg8QPTjZTvUVsbowp4S0WvaRuyzjFq4Xwm1nc9mOKl70P0tqKzyOKm/exec", "built": "11-12 19:50"};
 // 해석 시험 앱(학생)·조교 선생님 앱 공용(2026-11-10): 지문 원본 모양 그리기 · 서버 통신 · 대기 줄 계산 · 실시간 신호
 const $ = s => document.querySelector(s);
 const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
@@ -342,7 +342,7 @@ let ZM = +ls.get('z') || 100;
 const setZM = d => { ZM = Math.max(50, Math.min(260, ZM + d)); ls.set('z', ZM); $('#pgs').style.setProperty('--z', ZM + '%'); };
 function buildPages() {
   if (IO) IO.disconnect(); Q.length = 0; for (const i in URLS) { URL.revokeObjectURL(URLS[i]); delete URLS[i]; }
-  $('#pgs').innerHTML = B.pg.map((_, i) => `<div class="ph ink-page" data-p="${B.r}-${i}" data-i="${i}" style="aspect-ratio:1/${B.ar}"><i>${i + 1}쪽</i></div>`).join('');
+  $('#pgs').innerHTML = B.pg.map((_, i) => `<div class="ph ink-page" data-p="${B.r}-${i}" data-i="${i}" style="aspect-ratio:1/${(B.ars || [])[i] || B.ar}"><i>${i + 1}쪽</i></div>`).join('');
   $('#pgs').style.setProperty('--z', ZM + '%');
   IO = new IntersectionObserver(es => { for (const e of es) e.isIntersecting ? want(e.target) : (e.target.dataset.on && unload(e.target)); }, {root: $('#vb'), rootMargin: '200% 0px'});
   document.querySelectorAll('#pgs .ph').forEach(x => IO.observe(x));
